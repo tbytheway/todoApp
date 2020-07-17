@@ -56,11 +56,20 @@ def get_todos():
 
 @app.route("/todo/<id>", methods=["GET"])
 def get_todo(id):
-    todo = todo.query.get(id)
+    todo = Todo.query.get(id)
+    return todo_schema.jsonify(todo)
+
+@app.route("/todo/<id>", methods=["PATCH"])
+def update_todo(id):
+    todo = Todo.query.get(id)
+    new_done = request.json["done"]
+
+    todo.done = new_done
+    db.session.commit()
     return todo_schema.jsonify(todo)
 
 @app.route("/todo/<id>", methods=["DELETE"])
-def _delete(id):
+def todo_delete(id):
     todo = Todo.query.get(id)
     db.session.delete(todo)
     db.session.commit()
