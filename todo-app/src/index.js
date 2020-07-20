@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios'
+import TodoItem from './TodoItem'
 
 import './index.css';
 
@@ -18,9 +19,7 @@ class App extends Component {
 renderTodos = () => {
   return this.state.todos.map(todo => {
     return (
-      <div key={todo.id}>
-        {todo.title}
-      </div>
+      <TodoItem key={TodoItem.id} todo={todo}/>
     )
   })
 }
@@ -36,7 +35,7 @@ componentDidMount() {
 
 render() {
   return(
-    <div>
+    <div className="app">
       <h1>Todo App</h1>
       <div />
         {this.renderTodos()}
